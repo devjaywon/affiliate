@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-user-layout>
     
     <header class="mobile">
         <div class="left-section">
@@ -34,7 +34,8 @@
         <p class="my-profile">MY PROFILE</p>
         <div class="profile-container">
             <div class="profile-pics-container">
-                <img class="profile-pics" src="" alt="">
+                <x-profile-picture :user="$user" size="md"/>
+
             </div>
 
             <div class="profile-pics-file-container">
@@ -46,22 +47,22 @@
             </div>
 
             <div>
-                <form method="POST" action="{{ route('profile.update', $user->id) }}" class="form" action="">
-                <input type="text" id="fname" placeholder="First Name" name="firstname" value="{{ $user->firstname }}"><br>
-                <input type="text" id="lname" placeholder="Middle-name" name="middlename" value="{{ $user->surnname }}"><br>
-                <input type="text" id="lname" placeholder="Surname" name="surname" value="{{ $user->middlename }}"><br>
-                <input type="email" id="lname" placeholder="Email Address" name="email" value="{{ $user->email }}"><br>
-                <input type="text" id="lname" placeholder="Phone Number" name="phone" value="{{ $user->phone }}"><br>
+                <form method="POST" action="{{ route('profile.update', $user->id) }}" class="form" >
+                <input type="text" id="firstname" placeholder="First Name" name="firstname" value="{{ $user->firstname }}"><br>
+                <input type="text" id="surname" placeholder="Middle-name" name="middlename" value="{{ $user->surnname }}"><br>
+                <input type="text" id="middlename" placeholder="Surname" name="surname" value="{{ $user->middlename }}"><br>
+                <input type="email" id="email" placeholder="Email Address" name="email" value="{{ $user->email }}"><br>
+                <input type="text" id="phone" placeholder="Phone Number" name="phone" value="{{ $user->phone }}"><br>
                 <a class="save-changes-btn" href="">Save Changes</a>
             </form>
             </div>
 
             <div class="form-container">
-                <form class="form2" action="">
+                <form method="POST" action="{{ route('profile.update', $user->id) }}" class="form2" >
                     <p>BANK DETAILS</p>
-                    <input type="text" id="fname" placeholder="Bank Name"><br>
-                    <input type="text" id="lname" placeholder="Account Name"><br>
-                    <input type="number" id="lname" placeholder="Account Number"><br>
+                    <input type="text" id="bankn" placeholder="Bank Name" value="{{ old('bank_name') }}"><br>
+                    <input type="text" id="account" placeholder="Account Name" value="{{ old('account') }}"><br>
+                    <input type="number" id="number" placeholder="Account Number" value="{{ old('number') }}"><br>
                     <a class="save-changes-btn" href="">Save Changes</a>
                 </form>
     
@@ -104,7 +105,8 @@
     <nav class="sidebar">
         <div class="profile-pics-container">
             <div>
-                <img class="logo1" src="{{ $user->image }}" alt="">
+                <x-profile-picture :user="$user" />
+
             </div>
             <div>
                 <p>Wecreament</p>
@@ -143,11 +145,11 @@
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-image">
                             <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
                         </svg>
-                        <a href="{{ route('profile', $user->firstname) }}">My Profile</a></li>
+                        <a href="{{ route('profile') }}">My Profile</a></li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-image">
                             <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
                         </svg>
-                        <a href="{{ route('products.index') }}">My Products</a></li>
+                        <a href="{{ route('products.index') }}/?user_id={{ $user->id }}">My Products</a></li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-image">
                             <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
                         </svg>

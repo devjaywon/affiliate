@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Image;
 use App\Models\User;
-
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -26,6 +26,7 @@ class Product extends Model
         'description',
         'status',
         'user_id',
+        'image',
     ];
      /**
      * @return BelongsToMany
@@ -33,6 +34,11 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(image::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 
     public function author()

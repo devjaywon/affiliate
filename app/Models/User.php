@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Transaction;
 use App\Models\Product;
+use App\Enums\UserType;
 
 class User extends Authenticatable
 {
@@ -27,6 +29,9 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'role_id',
+        'plan_id',
+        
     ];
 
     /**
@@ -61,6 +66,19 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function plan() {
+        return $this->belongsTo(Plan::class, 'plan_id');
+    }
+
+     /**
+     * @param \App\Enums\UserRole $role
+     * @return bool
+     */
+    public function hasPlan($plan): bool
+    {
+        return $this->plan->name === $plan;
+    }
+
     public function referer_user() {
         return $this->belongsTo(User::class, 'referer_user_id');
     }
@@ -69,6 +87,9 @@ class User extends Authenticatable
         return $this->hasMany(User::class, 'referer_user_id');
     }
 
+    public function downlines() {
+        return $this->hasMany(User::class, 'referer_user_id');
+    }
 
     public function uploadProfilePicture(UploadedFile $profilePicture): void
     {
@@ -77,6 +98,10 @@ class User extends Authenticatable
         ]);
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
    
 
 }

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Enums\UserRole;
+
 
 class RegisterController extends Controller
 {
@@ -56,8 +58,10 @@ class RegisterController extends Controller
              'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        
 
+        event(new Registered($user));
+        alert()->success('User Registered Sucessfully');
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

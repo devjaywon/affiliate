@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -43,21 +44,28 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
          // Retrieve the validated input data...
-         $validated = $request->validated();
-
-
          $data = $request->all();
-         if($request->input('image')){
-             $this->handleImage($data['image']);
-         }
- 
-         $data['user_id'] = auth()->user()->id;
-         $user = Product::create($data);
+        
+        
+         if ($request->has('image')) {
+            $data['image'] = $this->handleImage($request);
+        }
 
-         return redirect()->route('products.index')->with(['messageClass' => 'success', 'message' => 'Created successfully .']);
+
+        
+
+         $data['user_id'] = auth()->user()->id;
+        
+ 
+         $product = Product::create($data);
+         
+        
+         $this->handleCategories($request, $product);
+         alert()->success('Product Created Sucessfully');
+         return redirect()->route('products.index');
    
     }
 
@@ -94,7 +102,8 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->all());
-        return redirect()->back()->with(['messageClass' => 'success', 'message' => 'Updated successfully .']);
+        alert()->success('Product Updated Sucessfully');
+        return redirect()->back();
   
     }
 
@@ -107,7 +116,55 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
          $request->delete();
-         return redirect()->back()->with(['messageClass' => 'success', 'message' => 'Updated successfully .']);
+         alert()->success('Product Deleted Sucessfully');
+         return redirect()->back();
   
     }
+
+      /**
+     * @param Request $request
+     * @param Post $post
+     * @return void
+     */
+    private function handleCategories(Request $request, Product $product): void
+    {
+        $categories = [];
+
+        if ($request->has('categories')) {
+            foreach ($request->categories as $category) {
+                $categories[] = Category::firstOrCreate(['name' => $category], ['name' => $category, 'user_id' => 2])['id'];
+            }
+        }
+
+        $product->categories()->sync($categories);
+    }
+
+       /**
+     * @param Request $request
+     * @param Post $post
+     * @return void
+     */
+    private function handleMultipleImages(Request $request, Product $product): void
+    {
+        $categories = [];
+
+        if ($request->has('categories')) {
+            foreach ($request->categories as $category) {
+                $categories[] = Category::firstOrCreate(['name' => $category], ['name' => $category])['id'];
+            }
+        }
+
+        $product->categories()->sync($categories);
+    }
+
+
+    /**
+     * @param \App\Http\Requests\PostRequest $request
+     * @return string
+     */
+    private function handleImage(Request $request): string
+    {
+        return $request->file('image')->store('products', 'public');
+    }
+
 }

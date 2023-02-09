@@ -33,11 +33,11 @@ class ProfilePicture extends Component
     public function size(): string
     {
         return match ($this->size) {
-            'xs' => 'w-6 h-6',
-            'sm' => 'w-10 h-10',
-            'md' => 'w-16 h-16',
-            'lg' => 'w-24 h-24',
-            'xl' => 'w-32 h-32',
+            'xs' => 'height:50px;width:50px;',
+            'sm' => 'height:70px;width:70px;',
+            'md' => 'height:120px;width:120px;',
+            'lg' => 'height:50px;width:50px;',
+            'xl' => 'height:50px;width:50px;',
         };
     }
 }

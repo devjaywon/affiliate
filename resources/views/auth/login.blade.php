@@ -1,6 +1,5 @@
- <x-app-layout>
+ <x-guest-layout>
     
- <div class="card-header">{{ __('Login') }}</div>
 
 
     <form class="form" method="POST" action="{{ route('login') }}">
@@ -58,7 +57,7 @@
    <div>
        <input type="checkbox" id="lname" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}><p class="agreed">   {{ __('Remember Me') }}</p>
    </div>
-   <div class="sign-up-button">
+   <div class="sign-up-button1">
        <input type="submit" value="{{ __('Login') }}">
                 @if (Route::has('password.request'))
                                <a href="{{ route('password.request') }}">
@@ -67,9 +66,9 @@
                            @endif
        
    </div >
-   <div class="dont-container">
+   <div class="dont-container1">
        <p>Don't have an account?</p><a href=""{{ route('register') }}">Sign up here</a>
    </div>
    
 </form>
-</x-app-layout>
+</x-guest-layout>

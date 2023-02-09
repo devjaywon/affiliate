@@ -1,63 +1,19 @@
 
-<x-guest-layout>
+<x-app-layout>
 
 <main>
-    <div class="journey">
-        <p class="the-journey">The journey of a <br> thousands mile to the land of wealth begins with a step</p>
-        <a class="here" href="{{ route('register') }}">HERE</a>
-    </div>
 
-    <div class="journey1">
-        <p class="the-journey1">The journey of a thousands mile to the land <br> of wealth begins with a step</p>
-        <a class="here" href="{{ route('register') }}">HERE</a>  
-    </div>
-    
-    <div class="image-container-desktop">
-        <div class="image-container1">
-            <img class="image12" src="/images/IMG-20221209-WA0000.jpg" alt="image">
-        </div>
-
-        <div class="who-we-are-desktop">
-            <div class="who-we-are-container1">
-                <p class="who-we-are1">THIS IS WHO WE ARE</p>
-                <div class="bottom-border3"></div>
-            </div>
-            <div>
-                <p class="a-place1">
-                    A PLACE TO FIND THE BETTER LIFE YOU HAVE BEEN DESIRE
-                </p>
-        
-                <p class="pitch-message1">
-                    It's highly risky to depend on one source of income in this harsh economy, and the most terrible thing that can happen to any human living in this economy is not making enough money that can help them survive the harshness economy of this economy. Which is where will enter the scene.<br><br>
-        
-                    We know that you won't be able to comfortably achieve a whole lot of things if there is no stable and consistent inflow of cash that can make th process easier, and that is the main reason we are here <br><br>
-        
-                    We are presenting to you an opportunity that will help you earn the amount money you have always desired by presenting to you a three-way opportunity to achieve that, you can choose one, and you can decide to  choose all three. The most important aspect of this opportunity is that, you are never left alone to figure things out yourself, you will be supplied with adequate knowledge that wil guide you to the path of that financial breakthrough. <br><br>
-                </p>
-            </div>
+    <div style="padding:20px;margin:20px;color:#fff;font-size:30px">
+        <div class="user-name-content">
+            <p>Welcome, <span>{{ Auth::user()->firstname }}</span></p>
         </div>
     </div>
 
-    <div class="image-container">
-        <img class="image1" src="/images/IMG-20221209-WA0000.jpg" alt="image">
-    </div>
 
-    <div class="who-we-are-container">
-        <p class="who-we-are">THIS IS WHO WE ARE</p>
-        <div class="bottom-border"></div>
-    </div>
 
-    <p class="a-place">
-        A PLACE TO FIND THE BETTER LIFE YOU HAVE BEEN DESIRE
-    </p>
 
-    <p class="pitch-message">
-        It's highly risky to depend on one source of income in this harsh economy, and the most terrible thing that can happen to any human living in this economy is not making enough money that can help them survive the harshness economy of this economy. Which is where will enter the scene.<br><br>
-
-        We know that you won't be able to comfortably achieve a whole lot of things if there is no stable and consistent inflow of cash that can make th process easier, and that is the main reason we are here <br><br>
-
-        We are presenting to you an opportunity that will help you earn the amount money you have always desired by presenting to you a three-way opportunity to achieve that, you can choose one, and you can decide to  choose all three. The most important aspect of this opportunity is that, you are never left alone to figure things out yourself, you will be supplied with adequate knowledge that wil guide you to the path of that financial breakthrough. <br><br>
-    </p>
+    <br>
+        <br>
 
     <div class="how-to-earn-container">
         <p class="how-to-earn">HOW TO EARN WITH US</p>
@@ -142,36 +98,22 @@
         <a class="visit-shop" href="">CLICK TO VIEW OUR PRODUCTS >>></a>
     </div>
 
-    <div class="benefit-container">
-        <p>BENEFITS OF BEING PART OF US</p>
-        <ul>
-            <li>We offer 24/7 support to our members</li> <br>
-            <li>Daily coaching on our telegram group and on our site</li> <br>
-            <li>We also pay up to third level commission</li> <br>
-            <li>Payment day usually Saturday and Sunday</li> <br>
-            <li>No minimum withdrawal but we payout on request</li> 
-        </ul>
-    </div>
-
-    <div class="benefit-container1">
-        <p>BENEFITS OF BEING PART OF US</p>
-        <ul>
-            <li>We offer 24/7 support to our members</li> <br>
-            <li>Daily coaching on our telegram group and on our site</li> <br>
-            <li>We also pay up to third level commission</li> <br>
-            <li>Payment day usually Saturday and Sunday</li> <br>
-            <li>No minimum withdrawal but we payout on request</li> 
-        </ul>
-    </div>
     
     <div class="link-containers">
-        <a class="visit-shop" href="{{ route('register') }}">GET STARTED NOW!</a>
+        <a class="visit-shop" href="{{ url('pages/affiliate') }}">Become an Affiliate</a>
+    </div>
+    <div class="link-containers1">
+        <a class="visit-shop" href="{{ url('pages/affiliate') }}">Become an Affiliate</a>
     </div>
 
-    <div class="link-containers1">
-        <a class="visit-shop" href="{{ route('register') }}">GET STARTED NOW!</a>
+    <div class="link-containers">
+        <a class="visit-shop" href="{{ url('pages/creator') }}">Become a Creator</a>
     </div>
+    <div class="link-containers1">
+        <a class="visit-shop" href="{{ url('pages/creator') }}">Become a Creator</a>
+    </div>
+    
     
 </main>
 
-</x-guest-layout>
+</x-app-layout>

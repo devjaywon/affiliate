@@ -3,14 +3,16 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Account\TransactionController;
+use App\Http\Controllers\Account\MemberPackageController;
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\WithdrawalController;
+use App\Http\Controllers\Account\PaymentController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Middleware\VerifyPaystackWebhookSignature;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +25,11 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-/*
 
-Route::get('/', function () {
+
+Route::middleware('guest')->get('/', function () {
     return view('welcome');
 });
-*/
 
 
 
@@ -37,17 +38,17 @@ Route::get('/pages/affiliate', function () {
 });
 
 Route::get('/pages/creator', function () {
-    return view('pagescreator');
+    return view('pages.creator');
 });
 
 
-
-Route::get('/', [HomeController::class, 'index'])->name('home');  
-Route::get('/home', [HomeController::class, 'index']);
-  
+Route::get('plans/{plan}', [MemberPackageController::class, 'index'])->name('plans');
+Route::get('/home', [HomeController::class, 'index'])->name('home'); 
+   
 
 
 Route::prefix('account')->name('account.')->group(function() {
+   
     Route::get('', [AccountController::class, 'index'])->name('index');
     Route::get('transactions', [TransactionController::class, 'index'])->name('transaction');
     Route::get('downlines', [AccountController::class, 'downline'])->name('downlines');
@@ -55,10 +56,11 @@ Route::prefix('account')->name('account.')->group(function() {
   
 });
 
-Route::middleware('auth')->group(function() {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');  
-    Route::get('profile/{username}', [ProfileController::class, 'index'])->name('profile');
-    Route::post('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+Route::middleware(['auth','plan'])->group(function() {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
+    Route::get('profile/', [ProfileController::class, 'index'])->name('profile');
+    Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
  
     //Route Resources
 
@@ -66,7 +68,7 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('products', ProductController::class);
 
-    Route::resource('transactions', TransactionController::class);  
+    //Route::resource('transactions', TransactionController::class);  
 
    
 });
@@ -76,6 +78,16 @@ Route::middleware('auth')->group(function() {
     });
 
 
+
+Route::get('/pay', [PaymentController::class, 'index'])->name('payment');
+Route::get('/success/{ref?}', [PaymentController::class, 'success'])->defaults('ref', null)->name('success');
+Route::get('/cancel/{ref?}', [PaymentController::class, 'cancel'])->defaults('ref', null)->name('cancel');
+
+Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
+
+Route::get('/redirect', [PaymentController::class, 'redirect'])->name('redirect');
+
+Route::get('/{gateway}/callback', [PaymentController::class, 'verify'])->name('verify');
 //add auth routes
 
 require __DIR__.'/auth.php';

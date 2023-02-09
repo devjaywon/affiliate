@@ -14,14 +14,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($username = '')
+    public function index()
     {
-        if(empty($username))
-        {
-            $username = auth()->user()->firstname;
-        }
+        
 
-        $user = User::where('firstname', $username)->firstOrFail();
+        $user = User::find(auth()->user()->id);
         
         return view('account.profile', compact('user'));
     }

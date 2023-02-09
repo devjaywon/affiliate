@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum UserRole: string implements Arrayable {
     case ADMIN = 'admin';
-    case AUTHOR = 'author';
+    case USER = 'author';
 
     /**
      * @return string
@@ -13,7 +13,7 @@ enum UserRole: string implements Arrayable {
     {
         return match ($this) {
             self::ADMIN => 'bg-indigo-100',
-            self::AUTHOR => 'bg-sky-100',
+            self::USER => 'bg-sky-100',
         };
     }
 

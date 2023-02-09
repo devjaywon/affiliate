@@ -8,13 +8,8 @@
 
     <title> @yield('title') | {{ config('app.name', 'Affiliate') }}</title>
  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/sign-in.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/product-page.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/account.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/affiliate-page.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/registration.css') }}">
- <link rel="stylesheet" href="{{ asset('assets/css/creator-page.css') }}">
- 
+ <link rel="stylesheet" href="{{ asset('assets/css/Affiliate-page.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets/css/Creator-page.css') }}">
  
  
  <link rel="shortcut icon" href="/images/IMG-20221209-WA0000.jpg" type="image/x-icon">
@@ -32,6 +27,6 @@
     @include('layouts._footer')
 
 
-<script src="{{ asset('assets/js/index.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 </html>

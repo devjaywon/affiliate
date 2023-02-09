@@ -13,6 +13,13 @@
             <div class="product-container">
                 
                {{ $product->name }}
+
+               
+        @foreach ($product->images as $image)
+
+           {{ $image->file_name }}  
+        @endforeach
+        
                {{ $product->description }}
                {{ $product->content }}
 
@@ -33,6 +40,13 @@
             <div class="desktop-product-container">
                 <div class="desktop-product-home-container">
                     <div class="product-container-d"></div>
+
+                    
+                    @foreach ($product->images as $image)
+
+                    {{ $image->file_name }}  
+                   @endforeach
+                    
                     {{ $product->name }}
                     {{ $product->description }}
                     {{ $product->content }}
@@ -46,6 +60,11 @@
             <div class="desktop-product-container">
                 <div class="desktop-product-home-container">
                     <div class="product-container-d">
+                        @foreach ($product->images as $image)
+
+                    {{ $image->file_name }}  
+                   @endforeach
+                    
                         {{ $product->name }}
                         {{ $product->description }}
                         {{ $product->content }}

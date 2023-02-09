@@ -185,7 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Services\Alert\AlertServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -209,6 +209,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Alert' => App\Services\Alert\Facades\Alert::class,
+        
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

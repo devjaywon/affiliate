@@ -9,10 +9,26 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
+
     public function index()
+    {
+        $user = User::find(Auth::id());
+        $plan = $user->plan->name;
+        return view('account.' .$plan, compact('user'));
+    
+    }
+
+    public function affiliate()
     {
          $user = User::find(Auth::id());
 
-        return view('account.dashboard', compact('user'));
+        return view('account.index', compact('user'));
+    }
+
+    public function creator()
+    {
+         $user = User::find(Auth::id());
+
+        return view('account.index', compact('user'));
     }
 }
